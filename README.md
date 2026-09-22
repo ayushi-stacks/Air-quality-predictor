@@ -431,7 +431,46 @@ XGBRegressor(
 
 # 7. Model Evaluation
 
-The models were evaluated using three regression metrics.
+The models were evaluated using three regression metrics:
+
+* **Mean Absolute Error (MAE)**
+* **Root Mean Squared Error (RMSE)**
+* **R² Score**
+
+### Model Comparison
+
+| Model             |     MAE |    RMSE |     R² |
+| ----------------- | ------: | ------: | -----: |
+| Linear Regression | 20.3413 | 30.3948 | 0.8141 |
+| Random Forest     | 22.1681 | 36.7489 | 0.7282 |
+| XGBoost           | 22.1360 | 36.0829 | 0.7380 |
+
+### Results
+
+Linear Regression achieved the lowest MAE and RMSE and the highest R² score on the held-out test set.
+
+XGBoost achieved an R² of **0.7380**, with an MAE of **22.1360 µg/m³** and RMSE of **36.0829 µg/m³**.
+
+Although Linear Regression performed better on this dataset, **XGBoost was retained as the deployed model** to provide a nonlinear ensemble-based approach and to support further experimentation and feature expansion.
+
+### XGBoost Feature Importance
+
+The most influential features in the XGBoost model were:
+
+| Feature      | Importance |
+| ------------ | ---------: |
+| rolling_3    |     0.2928 |
+| rolling_7    |     0.1479 |
+| day_of_year  |     0.1043 |
+| lag_3        |     0.1001 |
+| lag_1        |     0.0785 |
+| rolling_14   |     0.0698 |
+| lag_2        |     0.0629 |
+| week_of_year |     0.0611 |
+| lag_7        |     0.0589 |
+| day_of_week  |     0.0237 |
+
+The **3-day rolling average** was the most important feature for the XGBoost model, followed by the 7-day rolling average. This indicates that recent PM2.5 trends contributed substantially to the model's predictions.
 
 ## Mean Absolute Error
 
